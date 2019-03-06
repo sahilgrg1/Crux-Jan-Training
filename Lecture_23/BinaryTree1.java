@@ -1,5 +1,7 @@
 package com.codingblocks.Lecture_23;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class BinaryTree1 {
@@ -37,5 +39,86 @@ public class BinaryTree1 {
         }
         return node;
     }
+    public void Indent()
+    {
+        display("",this.root,"root");
+    }
+    public void display(String indent , Node node,String type)
+    {
+        if(node == null)
+        {
+            return ;
+        }
+        System.out.println(indent + node.value);
+        display(indent + "\t",node.left,"left");
+        display(indent +"\t" , node.right,"right");
+    }
+    public void preoder(Node node)
+    {
+        if(node == null)
+        {
+            return ;
+        }
+        System.out.println(node.value+" ");
+        System.out.println(node.left);
+        System.out.println(node.right);
+    }
+    void pre()
+    {
+        preoder(root);
+    }
+    public int depth(Node node)
+    {
+        if( node == null)
+        {
+            return 0 ;
+        }
+        return Math.max(depth(node.left),depth(node.right))+1;
+    }
+    public int diameter()
+    {
+        if(root == null)
+        {
+            return 0 ;
+        }
+        return depth(root.left) +depth(root.right) + 1 ;
+    }
+    public boolean find (int target)
+    {
+        return find(root, target);
+    }
+    private boolean find(Node node , int target)
+    {
+        if(node == null)
+        {
+            return false ;
+        }
+        if( node.value == target)
+        {
+            return true ;
+        }
+        return find(node.left,target) || find(node.right,target);
+    }
+//    public void populateByPreIn(int[] pre , int[] in )
+//    {
+//        this.root = poplulateByPreIn(pre, in);
+//    }
+    public void levelorder(){
+        if(root == null)
+        {
+            return ;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while(!queue.isEmpty())
+        {
+            Node node = queue.remove();
+            System.out.println(node.value);
+            if(node.left != null)
+            {
+                queue.add(node.right);
+            }
+        }
 
+    }
 }
